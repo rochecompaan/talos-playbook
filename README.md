@@ -41,6 +41,7 @@ all:
     cluster_endpoint: https://10.10.112.1:6443
     cluster_vip: 10.10.112.1
     kubeconfig_prefix: example_
+    kubeconfig_path: ~/.kube/my-cluster
     default_gateway: 10.10.112.254
     nameservers:
       - 8.8.8.8

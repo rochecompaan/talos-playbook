@@ -64,6 +64,6 @@
     -m=false
     -n {{ cluster_vip }}
     -e {{ cluster_vip }}
-    ~/.kube/{{ kubeconfig_prefix }}{{ cluster_name }}.yaml
+    {{ kubeconfig_path }}
   args:
     chdir: "{{ inventory_dir }}/clusters/{{ cluster_name }}"
