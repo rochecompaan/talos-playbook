@@ -46,6 +46,7 @@
 
 - name: Decrypt secret data
   run_once: true
+  no_log: "{{ show_log }}"
   shell: >
     ansible-vault decrypt "{{ item.item }}.yaml.enc"
     --output secrets/{{ item.item }}.yaml
