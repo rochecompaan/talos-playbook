@@ -79,3 +79,5 @@ all:
 * cluster_name == inventory file name(without ext.)
 * "patches" are patches in the playbook repository
 * "local_patches" are patches in your repository
+* add -e "show_log=true" as extra argument to ansible-playbook to show log
+  output if a task fails
