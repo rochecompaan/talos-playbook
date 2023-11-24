@@ -2,7 +2,6 @@
 
 - name: Encrypt secret data
   run_once: true
-  no_log: true
   shell: >
     ansible-vault encrypt secrets/{{ item }}.yaml
     --output "{{ item }}.yaml.enc"
