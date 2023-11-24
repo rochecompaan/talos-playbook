@@ -20,7 +20,7 @@
     - patch
 
 - include_tasks: bootstrap.yaml
-  when: apply_configs is defined and apply_configs == "true"
+  when: bootstrap is defined and bootstrap == "true"
   tags:
     - bootstrap
 

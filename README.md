@@ -26,7 +26,7 @@
   ```
 - Play role
   ```
-  ansible-playbook crash_tech.kubernetes.talos -e "apply_configs=true install_charts=false upgrade_talos=false" -i test-cluster.yaml
+  ansible-playbook crash_tech.kubernetes.talos -e "apply_configs=true bootstrap=true install_charts=false upgrade_talos=false" -i test-cluster.yaml
   ```
 - Enjoy!
   ```
