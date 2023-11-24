@@ -20,7 +20,7 @@
     - patch
 
 - include_tasks: endpoints.yaml
-  when: endpoints is defined and endpoints == "true"
+  when: configure_endpoints is defined and configure_endpoints == "true"
   tags:
     - endpoints
 
