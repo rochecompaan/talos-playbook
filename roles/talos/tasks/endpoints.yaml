@@ -1,0 +1,11 @@
+---
+
+- name: Set talosconfig endpoints
+  run_once: true
+  shell: >
+    talosctl config endpoint --talosconfig secrets/talosconfig.yaml
+    {{ groups['all'] | map('extract', hostvars, ['ip']) | map('regex_replace', '/.+', '') | join(' ') }}
+  args:
+    chdir: "{{ inventory_dir }}/clusters/{{ cluster_name }}"
+  changed_when: false
+

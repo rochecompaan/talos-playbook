@@ -19,6 +19,11 @@
   tags:
     - patch
 
+- include_tasks: endpoints.yaml
+  when: endpoints is defined and endpoints == "true"
+  tags:
+    - endpoints
+
 - include_tasks: bootstrap.yaml
   when: bootstrap is defined and bootstrap == "true"
   tags:
