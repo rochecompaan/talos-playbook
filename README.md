@@ -43,6 +43,8 @@ all:
     kubeconfig_prefix: example_
     kubeconfig_path: ~/.kube/my-cluster
     default_gateway: 10.10.112.254
+    # if your cluster is only accessible through a load balancer
+    talos_api_endpoint: 172.0.0.1
     nameservers:
       - 8.8.8.8
       - 8.8.4.4
