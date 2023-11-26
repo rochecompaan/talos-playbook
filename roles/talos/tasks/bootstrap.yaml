@@ -1,5 +1,10 @@
 ---
 
+- name: Check if cluster directory exists
+  stat:
+    path: "{{ inventory_dir }}/clusters/{{ cluster_name }}"
+  register: cluster_dir_stat
+
 - name: Apply bootstrap node config
   retries: 10
   delay: 30
@@ -49,7 +54,7 @@
     chdir: "{{ inventory_dir }}/clusters/{{ cluster_name }}"
   when:
     - inventory_hostname == groups['controlplane'][0]
-    - cluster_dir.changed
+    - cluster_dir_stat.stat.exists
 
 - name: Get kubeconfig
   run_once: true
