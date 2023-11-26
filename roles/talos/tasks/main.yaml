@@ -36,6 +36,13 @@
   tags:
     - bootstrap
 
+- include_tasks: kubeconfig.yaml
+  when: >
+    (bootstrap is defined and bootstrap == "true") or
+    (get_kubeconfig is defined and get_kubeconfig == "true")
+  tags:
+    - kubeconfig
+
 - include_tasks: encrypt.yaml
   when: apply_configs is defined and apply_configs == "true"
   tags:
