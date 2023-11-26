@@ -4,6 +4,13 @@
   tags:
     - check
 
+- include_tasks: secretstats.yaml
+  when: >
+    (apply_configs is defined and apply_configs == "true") or
+    (get_secrets_stats is defined and get_secrets_stats == "true")
+  tags:
+    - secretstats
+
 - include_tasks: prepare.yaml
   when: apply_configs is defined and apply_configs == "true"
   tags:
