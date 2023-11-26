@@ -4,10 +4,6 @@
   tags:
     - check
 
-- name: Debug get_secrets_stats variable
-  debug:
-    var: get_secrets_stats
-
 - include_tasks: secretstats.yaml
   when: >
     (apply_configs is defined and apply_configs == "true") or
