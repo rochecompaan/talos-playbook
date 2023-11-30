@@ -1,19 +1,33 @@
 ---
 
-- name: Encrypt secret data
+- name: Recalculate checksums for potentially modified decrypted files
+  run_once: true
+  stat:
+    path: "{{ inventory_dir }}/clusters/{{ cluster_name }}/secrets/{{ item }}.yaml"
+    checksum_algorithm: md5
+  register: modified_decrypted_stats
+  loop: "{{ secrets }}"
+
+- name: Debug decrypted_stats
+  debug:
+    msg: "{{ decrypted_stats }}"
+
+- name: Debug modified_decrypted_stats
+  debug:
+    msg: "{{ modified_decrypted_stats }}"
+
+- name: Conditionally encrypt modified secrets
   run_once: true
   no_log: "{{ not show_log }}"
   shell: >
-    ansible-vault encrypt secrets/{{ item }}.yaml
-    --output "{{ item }}.yaml.enc"
+    ansible-vault encrypt "secrets/{{ item.item }}.yaml"
+    --output "{{ item.item }}.yaml.enc"
     --vault-password-file {{ inventory_dir }}/.vault_pass
-    && md5sum secrets/{{ item }}.yaml
   args:
     chdir: "{{ inventory_dir }}/clusters/{{ cluster_name }}"
   vars:
-    query: "results[?item=='{{ item }}'].stat.checksum"
-  register: result
-  loop: "{{ secrets }}"
-  changed_when: >
-    (decrypted_stats | json_query(query) | join()) == "" or
-    (decrypted_stats | json_query(query) | join()) not in result.stdout
+    query: "[?item==`' + item.item + '`].stat.checksum"
+  loop: "{{ modified_decrypted_stats.results }}"
+  when: >
+    item.stat.exists and (decrypted_stats.results | json_query(query) | first) != item.stat.checksum
+  changed_when: true
