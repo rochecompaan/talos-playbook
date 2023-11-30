@@ -17,7 +17,7 @@
   debug:
     msg: "{{ decrypted_stats.results | json_query(query) }}"
   vars:
-    query: "[?item=='" + item.item + "'].stat.checksum"
+    query: "[?item=='{{ item.item }}'].stat.checksum"
   loop: "{{ modified_decrypted_stats.results }}"
 
 - name: Debug modified_decrypted_stats
@@ -35,7 +35,7 @@
   args:
     chdir: "{{ inventory_dir }}/clusters/{{ cluster_name }}"
   vars:
-    query: "[?item=='" + item.item + "'].stat.checksum"
+    query: "[?item=='{{ item.item }}'].stat.checksum"
   loop: "{{ modified_decrypted_stats.results }}"
   when: >
     item.stat.exists and
