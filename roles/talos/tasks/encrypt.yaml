@@ -9,10 +9,12 @@
   loop: "{{ secrets }}"
 
 - name: Debug decrypted_stats
+  run_once: true
   debug:
     msg: "{{ decrypted_stats }}"
 
 - name: Debug modified_decrypted_stats
+  run_once: true
   debug:
     msg: "{{ modified_decrypted_stats }}"
 
