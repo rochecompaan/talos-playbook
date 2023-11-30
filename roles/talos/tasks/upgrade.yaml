@@ -4,7 +4,11 @@
   shell: >
     talosctl version
     --talosconfig secrets/talosconfig.yaml
+    {% if talos_api_endpoint is defined and talos_api_endpoint %}
+    -e {{ talos_api_endpoint }}
+    {% else %}
     -e {{ ip | regex_replace('/.+','')  }}
+    {% endif %}
     -n {{ ip | regex_replace('/.+','')  }}
   register: talos_node_version_result
   changed_when: false
@@ -27,7 +31,11 @@
   shell: >
     talosctl upgrade
     --talosconfig secrets/talosconfig.yaml
+    {% if talos_api_endpoint is defined and talos_api_endpoint %}
+    -e {{ talos_api_endpoint }}
+    {% else %}
     -e {{ ip | regex_replace('/.+','')  }}
+    {% endif %}
     -n {{ ip | regex_replace('/.+','')  }}
     --image ghcr.io/siderolabs/installer:{{ talos_version }}
     --preserve
