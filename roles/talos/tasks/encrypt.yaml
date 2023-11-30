@@ -8,23 +8,6 @@
   register: modified_decrypted_stats
   loop: "{{ secrets }}"
 
-- name: Debug decrypted_stats
-  run_once: true
-  debug:
-    msg: "{{ decrypted_stats }}"
-
-- name: Debug query output for decrypted stats
-  debug:
-    msg: "{{ decrypted_stats.results | json_query(query) }}"
-  vars:
-    query: "[?item=='{{ item.item }}'].stat.checksum"
-  loop: "{{ modified_decrypted_stats.results }}"
-
-- name: Debug modified_decrypted_stats
-  run_once: true
-  debug:
-    msg: "{{ modified_decrypted_stats }}"
-
 - name: Conditionally encrypt modified secrets
   run_once: true
   no_log: "{{ not show_log }}"
